@@ -3,7 +3,8 @@ const formEl = document.getElementById("my-form");
 const submitBtn = document.getElementById("submit");
 const savePrint = document.getElementById("print");
 let rowEl = document.getElementById("body");
-let final = Number(document.getElementById("final").textContent);
+let finalNum = document.getElementById("final")
+
 let formData = [];
 
 function validateForm() {
@@ -17,14 +18,14 @@ function validateForm() {
             formEl[0].classList.remove("error");
             formEl[1].classList.remove("error");           
         }
-        
+      
 }
 
 function addToTable(e) {
 
    e.preventDefault()
 
-   //create a arsonal of data, potnetialy turn it into JSON for fun idkkkkk
+   //create a arsonal of data, potential turn it into JSON for fun idkkkkk
    const dataEntered = { 
     title: formEl[0].value, 
     money: formEl[1].value, 
@@ -40,12 +41,50 @@ function addToTable(e) {
    let cell3 = newRow.insertCell(2);    cell3.textContent = dataEntered.date
    let cell4 = newRow.insertCell(3);    cell4.innerHTML = "<button>Delete?</button>";
 
+
+    var savedInt = Number(dataEntered.money)
+
     //this stuff needs to be updated after every entry
    document.querySelectorAll("#my-form input").forEach(input => {input.value = '' });
-   //this can probaly be deleted if i do the thing @ the bottom
-   updateButtonListeners()
+
+   doMath(savedInt)
+
+
 }
 
+function doMath(savedInt) {
+
+//let allNumbers = document.querySelectorAll("#output-data tr td:nth-child(2)")
+console.log(savedInt + " is the number to be added/ delted bases on its positie or negitive status")
+console.log(Number(finalNum.textContent) + " + " + savedInt)
+   let newNum = Number(finalNum.textContent) + savedInt;
+   
+   finalNum.textContent = newNum
+
+
+    
+}
+
+
+submitBtn.addEventListener('click', validateForm)
+formEl.addEventListener('submit', addToTable)
+savePrint.addEventListener('click', function () {
+    window.print()
+    JSON.stringify(dataEntered)
+
+})
+rowEl.addEventListener("click", function(e) {
+    if (e.target.matches("td > button")) {
+                let btn = e.target
+                let thatBtnRow= btn.closest('tr')
+                let amtToDelete = thatBtnRow.children[1].textContent
+                let savedInt = Number(amtToDelete) * -1
+                doMath(savedInt)
+                thatBtnRow.remove(btn)
+    }
+});
+
+/*
 function updateButtonListeners() {
     //im unsure if below is the best way to get ALL the numbers dynamically each time theres a change in the DOM 
     let allNumbers = document.querySelectorAll("#output-data tr td:nth-child(2)")
@@ -54,40 +93,10 @@ function updateButtonListeners() {
         
             btn.addEventListener("click", function () {
     
-                let thatBtnRow= btn.closest('tr')
-                let amtToDelete = thatBtnRow.children[1].textContent
-                let savedInt = Number(amtToDelete)
-                console.log(savedInt)
-                thatBtnRow.remove()
     
                 })
     
         });
     
     }
-submitBtn.addEventListener('click', validateForm)
-formEl.addEventListener('submit', addToTable)
-savePrint.addEventListener('click', function () {window.print()})
-
-/*
-MORE EFFICENT WAY THE INTERNET TOLD ME I DID NOT COME UP WITH THIS 
-
-outputTable.addEventListener("click", function(event) {
-    if (event.target.matches("td > button")) {
-        const clickedButton = event.target;
-        const thatBtnRow = clickedButton.closest('tr');
-        const amtToDelete = thatBtnRow.children[1].textContent;
-        const savedInt = Number(amtToDelete);
-        console.log(savedInt);
-        thatBtnRow.remove();
-        // No need to call updateButtons() here
-    }
-});
-
-
-
-
-function getValues(titleOf, amtOf, dateOf) {
-    
-}
 */
