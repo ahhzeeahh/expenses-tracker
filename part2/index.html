@@ -10,6 +10,9 @@
   <link rel="stylesheet" href="odin-two.css">
   <title>Odin Part 2</title>
   <style>
+    :root{
+    --bs-table-bg: #713e45 !important;;
+    }
      body{
     background-color: #efe8e8;
      }
@@ -19,6 +22,7 @@
       display: flex ;
       justify-content: center;
        }
+ 
        form{
         display: grid;
         gap: .5rem;
@@ -37,12 +41,12 @@
         border: red solid 2px;
       
       }
-      tfoot, thead{
-    
+      #output-data > thead >*>*,
+      #output-data > tfoot >*>* {
         background-color: #753c44 !important;
         color: #ffffff !important;
-        width: 100%;
-        padding:7px 15px;
+  
+        padding:12px 15px;
       }
       .top-row{ border:1px solid #b3adad;
           background: #ffffff;
@@ -101,7 +105,7 @@
 
   </style>
 </head>
-<body data-new-gr-c-s-check-loaded="14.1226.0" data-gr-ext-installed="">
+<body data-new-gr-c-s-check-loaded="14.1231.0" data-gr-ext-installed="">
  <main class="container">
       <h1>Expense Tracker 2</h1>
      
@@ -111,11 +115,11 @@
               <h4>Input the expense:</h4>
               <form id="my-form">
                 <label for="title">Enter expense title <span class="text-danger">*</span></label>
-              <input class="" id="input1" type="text" required="" name="title" placeholder="Title"> 
+              <input class="" id="input1" type="text" required="" name="title" placeholder="Title" data-enpassusermodified="yes"> 
                   <label for="amount">Enter expense amount <span class="text-danger">*</span></label>
-                  <input class="" id="input2" required="" type="number" name="amount" placeholder="Amount"> 
+                  <input class="" id="input2" required="" type="number" name="amount" placeholder="Amount" data-enpassusermodified="yes"> 
                   <label for="date">Enter expense date (optional)</label>
-                  <input id="input3" type="date" name="date"> 
+                  <input id="input3" type="date" name="date" data-enpassusermodified="yes"> 
                   <button class="button" id="submit" type="submit" value="Submit">Submit</button>
               </form>
               
@@ -124,7 +128,7 @@
           <div class="col">
       
             <table id="output-data" class="table">
-              <thead class="table-secondary">
+              <thead>
                   <tr>
                       <th>Title</th>
                       <th>Amount</th>
@@ -137,9 +141,12 @@
               
 
                    </tbody>
-              <tfoot class="table-secondary w-100">
+              <tfoot class="">
                 <tr>
                   <td>Final Amount: $<span id="final">0</span></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
               </tfoot>
           </table>
@@ -161,4 +168,6 @@
 
 
 
-</body></html>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
+
